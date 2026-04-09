@@ -39,3 +39,27 @@ body { background: var(--black); color: white; font-family: 'Montserrat', sans-s
 .nav-avatar { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--gold-solid); }
 .logout-trigger { background: none; border: none; color: #ff4d4d; margin-left: 10px; cursor: pointer; }
 .hidden { display: none !important; }
+.cart-drawer {
+    /* Use dynamic viewport height for mobile browsers */
+    height: 100dvh; 
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-footer {
+    margin-top: auto; /* Pushes the button to the bottom */
+    padding-bottom: env(safe-area-inset-bottom); /* Fixes iPhone notch/home bar issues */
+    background: #080808;
+}
+
+/* Make the WhatsApp button look cleaner */
+.whatsapp-btn {
+    border-radius: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
