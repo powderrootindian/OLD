@@ -65,7 +65,7 @@ function renderCart() {
                 <p style="font-size:0.9rem;">${item.name}</p>
                 <div class="qty-controls">
                     <button class="qty-btn" onclick="updateQty(${item.id}, -1)">-</button>
-                    <span>${item.qty}</span>
+                      <span class="gold-text">₹${item.price * item.qty}</span>
                     <button class="qty-btn" onclick="updateQty(${item.id}, 1)">+</button>
                 </div>
             </div>
