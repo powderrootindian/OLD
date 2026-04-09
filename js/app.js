@@ -1,5 +1,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const auth = getAuth(app);
+// Add this line below auth initialization
+setPersistence(auth, browserLocalPersistence);
 
 const firebaseConfig = {
     apiKey: "AIzaSyC-VwmmnGZBPGctP8bWp_ozBBTw45-eYds",
