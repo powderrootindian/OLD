@@ -1,265 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>POWDER ROOT | Premium Indian Powders</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-<link rel="stylesheet" href="css/style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POWDER ROOT | Artisanal Essence</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
 
-<!-- VIDEO -->
-<div class="video-bg">
-    <video autoplay muted loop playsinline>
-        <source src="assets/video/bg.mp4" type="video/mp4">
-    </video>
-    <div class="overlay"></div>
-</div>
-
-<!-- NAVBAR -->
-<nav>
-
-    <div class="logo-wrap">
-
-        <img src="assets/images/logo.jpg" class="logo-img">
-
-        <h2>
-            POWDER<span>ROOT</span>
-        </h2>
-
+    <!-- Cinematic Background with Navy Tint -->
+    <div class="video-bg">
+        <video autoplay muted loop playsinline id="bgVideo">
+            <source src="assets/video/bg.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
     </div>
 
-    <div class="nav-right">
-
-        <a href="https://www.instagram.com/powderoots?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="insta">
-
-            <i class="fa-brands fa-instagram"></i>
-
-        </a>
-
-        <!-- LOGIN -->
-        <button id="login-btn" class="login-btn" onclick="handleAuth()">
-
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg">
-
-            LOGIN
-
-        </button>
-
-        <!-- PROFILE -->
-        <div id="user-profile" class="user-profile hidden">
-
-            <img id="user-img">
-
-            <span onclick="handleLogout()">
-                LOGOUT
-            </span>
-
+    <!-- Symmetrical Professional Navigation -->
+    <nav class="glass-nav fade-in">
+        <div class="nav-left">
+            <div id="auth-section">
+                <button id="login-btn" class="btn-text" onclick="handleAuth()">LOGIN</button>
+                <div id="user-profile" class="hidden">
+                    <img id="user-img" src="" alt="Profile" class="nav-avatar">
+                    <button onclick="handleLogout()" class="logout-trigger" title="Logout">
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="brand-group">
+            <img src="assets/images/logo.png" alt="Logo" class="brand-icon hidden-mobile">
+            <div class="logo">POWDER<span>ROOT</span></div>
         </div>
 
-        <!-- CART -->
-        <div class="cart-icon" onclick="toggleCart()">
+        <div class="nav-right">
+            <div class="cart-trigger" onclick="toggleCart()">
+                BAG <i class="fa-solid fa-bag-shopping"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
 
-            <i class="fa-solid fa-bag-shopping"></i>
+    <!-- Editorial Left-Aligned Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h5 class="fade-up delay-1">ESTABLISHED 2026</h5>
+            <h1 class="fade-up delay-2">PURE.<br>ORGANIC.<br><span>REFINED.</span></h1>
+            <div class="hero-line fade-up delay-3"></div>
+            <button class="btn-beige fade-up delay-4" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">EXPLORE COLLECTION</button>
+        </div>
+    </section>
 
-            <span id="cart-count">0</span>
+    <!-- Clean Product Grid -->
+    <section id="shop" class="shop-section">
+        <div class="section-header reveal">
+            <h2 class="section-title">The Essentials</h2>
+            <p class="section-subtitle">Sustainably sourced, artisanally milled.</p>
+        </div>
+        <div class="product-grid" id="product-container"></div>
+    </section>
 
+    <!-- Sleek Navy & Beige Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>YOUR BAG</h3>
+            <i class="fa-solid fa-xmark" onclick="toggleCart()"></i>
         </div>
 
-    </div>
-
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-
-    <div class="hero-content reveal">
-
-        <p class="mini">
-            PREMIUM INDIAN BOUTIQUE
-        </p>
-
-        <h1>
-            PURE.<br>
-            CLEAN.<br>
-            REFINED.
-        </h1>
-
-        <p class="hero-text">
-            Premium vegetable powders crafted for modern Indian kitchens.
-        </p>
-
-        <button class="explore-btn" onclick="scrollToProducts()">
-
-            EXPLORE BOUTIQUE
-
-        </button>
-
-    </div>
-
-</section>
-
-<!-- TRUST -->
-<section class="trust reveal">
-
-    <div class="trust-box">
-        100% Natural
-    </div>
-
-    <div class="trust-box">
-        No Preservatives
-    </div>
-
-    <div class="trust-box">
-        Made In India
-    </div>
-
-    <div class="trust-box">
-        Premium Quality
-    </div>
-
-</section>
-
-<!-- ABOUT -->
-<section class="about">
-
-    <div class="about-left reveal">
-
-        <p class="mini">
-            WHY POWDER ROOT
-        </p>
-
-        <h2>
-            Crafted With<br>
-            Purity & Care
-        </h2>
-
-        <p>
-            Powder Root creates premium Indian vegetable powders using carefully selected ingredients, hygienic processing and refined preparation methods.
-        </p>
-
-    </div>
-
-    <div class="about-right">
-
-        <div class="about-card reveal">
-            <i class="fa-solid fa-seedling"></i>
-            <h3>Natural Ingredients</h3>
+        <!-- Step 1: Items -->
+        <div id="step-1" class="cart-step">
+            <div id="cart-items-list"></div>
+            <div class="cart-footer">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span id="cart-total">₹0.00</span>
+                </div>
+                <button class="btn-beige-full" onclick="nextStep(2)">PROCEED TO SHIPPING</button>
+            </div>
         </div>
 
-        <div class="about-card reveal">
-            <i class="fa-solid fa-shield-heart"></i>
-            <h3>Quality Assured</h3>
+        <!-- Step 2: Shipping -->
+        <div id="step-2" class="cart-step hidden">
+            <button class="back-link" onclick="nextStep(1)">← Back to Bag</button>
+            <h4>SHIPPING DETAILS</h4>
+            <div class="address-section">
+                <input type="text" id="cust-address" placeholder="Street Address" class="navy-input">
+                <div class="input-row">
+                    <input type="text" id="cust-city" placeholder="City" class="navy-input">
+                    <input type="text" id="cust-zip" placeholder="ZIP Code" class="navy-input">
+                </div>
+            </div>
+            <div class="cart-footer">
+                <button class="btn-beige-full" onclick="nextStep(3)">PROCEED TO PAYMENT</button>
+            </div>
         </div>
 
-        <div class="about-card reveal">
-            <i class="fa-solid fa-box-open"></i>
-            <h3>Premium Packaging</h3>
+        <!-- Step 3: Payment -->
+        <div id="step-3" class="cart-step hidden">
+            <button class="back-link" onclick="nextStep(2)">← Back to Shipping</button>
+            <h4 class="beige-text">SCAN TO PAY</h4>
+            <div id="qr-container" class="qr-box"></div>
+            <p class="qr-hint">Use any UPI App to complete your secure transaction.</p>
+            <div class="cart-footer">
+                <button class="whatsapp-btn" onclick="checkoutViaWhatsApp()">
+                    COMPLETE ORDER <i class="fa-brands fa-whatsapp"></i>
+                </button>
+            </div>
         </div>
-
-        <div class="about-card reveal">
-            <i class="fa-solid fa-truck-fast"></i>
-            <h3>Fast Delivery</h3>
-        </div>
-
     </div>
 
-</section>
-
-<!-- PRODUCTS -->
-<section class="products" id="products">
-
-    <p class="mini center">
-        THE COLLECTION
-    </p>
-
-    <h2 class="section-title">
-        Premium Powder Collection
-    </h2>
-
-    <div class="product-grid" id="product-container"></div>
-
-</section>
-
-<!-- CART -->
-<div class="cart-drawer" id="cart-drawer">
-
-    <div class="cart-top">
-
-        <h2>Your Cart</h2>
-
-        <i class="fa-solid fa-xmark" onclick="toggleCart()"></i>
-
-    </div>
-
-    <div id="cart-items-list"></div>
-
-    <div class="checkout-box">
-
-        <input type="text" id="cust-address" placeholder="Address">
-
-        <input type="text" id="cust-city" placeholder="City">
-
-        <input type="text" id="cust-zip" placeholder="Pincode">
-
-        <div class="total-row">
-
-            <span>Total</span>
-
-            <span id="cart-total">₹0</span>
-
-        </div>
-
-        <button class="checkout-btn" onclick="checkoutViaWhatsApp()">
-
-            COMPLETE ORDER
-
-        </button>
-
-    </div>
-
-</div>
-
-<!-- FOOTER -->
-<footer>
-
-    <h3>
-        POWDER ROOT
-    </h3>
-
-    <p>
-        Premium Indian Vegetable Powders
-    </p>
-
-    <div class="footer-icons">
-
-        <a href="https://www.instagram.com/powderoots?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
-
-            <i class="fa-brands fa-instagram"></i>
-
-        </a>
-
-        <a href="https://wa.me/919096999662" target="_blank">
-
-            <i class="fa-brands fa-whatsapp"></i>
-
-        </a>
-
-    </div>
-
-</footer>
-
-<script type="module" src="app.js"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
