@@ -1,6 +1,6 @@
-// =========================
+// ======================
 // FIREBASE IMPORTS
-// =========================
+// ======================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
@@ -10,15 +10,15 @@ GoogleAuthProvider,
 signInWithPopup,
 signOut,
 onAuthStateChanged,
-setPersistence,
-browserLocalPersistence
+browserLocalPersistence,
+setPersistence
 }
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 
-// =========================
-// FIREBASE CONFIG
-// =========================
+// ======================
+// CONFIG
+// ======================
 
 const firebaseConfig = {
 
@@ -36,11 +36,6 @@ appId: "1:776300724322:web:44b8908b6ffe1f6596513b"
 
 };
 
-
-// =========================
-// SETTINGS
-// =========================
-
 const PHONE_NUMBER = "919096999662";
 
 const UPI_ID = "8788855688-2@ybl";
@@ -49,12 +44,12 @@ const EMAIL_SERVICE = "service_cs926jb";
 
 const EMAIL_TEMPLATE = "template_ojt95o7";
 
-const EMAIL_PUBLIC_KEY = "lxY_3luPFEJNp2_dO";
+const EMAIL_PUBLIC = "lxY_3luPFEJNp2_dO";
 
 
-// =========================
+// ======================
 // INITIALIZE
-// =========================
+// ======================
 
 const app = initializeApp(firebaseConfig);
 
@@ -62,21 +57,21 @@ const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider();
 
-emailjs.init(EMAIL_PUBLIC_KEY);
+emailjs.init(EMAIL_PUBLIC);
 
 setPersistence(auth, browserLocalPersistence);
 
 
-// =========================
+// ======================
 // PRODUCTS
-// =========================
+// ======================
 
 const products = [
 
 {
 id:1,
 name:"Onion Powder",
-price:299,
+price:45,
 img:"assets/images/onion.jpg",
 desc:"Premium dehydrated onion powder."
 },
@@ -84,34 +79,34 @@ desc:"Premium dehydrated onion powder."
 {
 id:2,
 name:"Garlic Powder",
-price:189,
+price:55,
 img:"assets/images/garlic.jpg",
-desc:"Slow dried garlic powder."
+desc:"Natural garlic powder."
 },
 
 {
 id:3,
 name:"Ginger Powder",
-price:189,
+price:50,
 img:"assets/images/ginger.jpg",
-desc:"Natural ginger powder."
+desc:"Fresh aromatic ginger powder."
 }
 
 ];
 
 
-// =========================
+// ======================
 // STATE
-// =========================
+// ======================
 
 let cart = [];
 
 let currentUser = null;
 
 
-// =========================
+// ======================
 // AUTH
-// =========================
+// ======================
 
 onAuthStateChanged(auth,(user)=>{
 
@@ -123,7 +118,7 @@ document.getElementById("login-btn");
 const profile =
 document.getElementById("user-profile");
 
-const userImg =
+const img =
 document.getElementById("user-img");
 
 if(user){
@@ -132,7 +127,7 @@ loginBtn.classList.add("hidden");
 
 profile.classList.remove("hidden");
 
-userImg.src = user.photoURL;
+img.src = user.photoURL;
 
 }else{
 
@@ -143,6 +138,7 @@ profile.classList.add("hidden");
 }
 
 });
+
 
 window.handleAuth = async()=>{
 
@@ -158,24 +154,17 @@ console.log(error);
 
 };
 
+
 window.handleLogout = async()=>{
 
-try{
-
 await signOut(auth);
-
-}catch(error){
-
-console.log(error);
-
-}
 
 };
 
 
-// =========================
-// RENDER PRODUCTS
-// =========================
+// ======================
+// PRODUCTS
+// ======================
 
 const productContainer =
 document.getElementById("product-container");
@@ -194,6 +183,8 @@ productContainer.innerHTML += `
 
 <img src="${product.img}" alt="${product.name}">
 
+<div>
+
 <h3>${product.name}</h3>
 
 <p>${product.desc}</p>
@@ -210,6 +201,8 @@ ADD TO BAG
 
 </div>
 
+</div>
+
 `;
 
 });
@@ -219,9 +212,9 @@ ADD TO BAG
 renderProducts();
 
 
-// =========================
+// ======================
 // CART
-// =========================
+// ======================
 
 window.toggleCart = ()=>{
 
@@ -235,12 +228,12 @@ document
 
 window.addToCart = (id)=>{
 
-const existing =
-cart.find(item=>item.id===id);
+const item =
+cart.find(i=>i.id===id);
 
-if(existing){
+if(item){
 
-existing.qty++;
+item.qty++;
 
 }else{
 
@@ -257,6 +250,8 @@ qty:1
 }
 
 renderCart();
+
+animateCart();
 
 };
 
@@ -281,6 +276,10 @@ renderCart();
 };
 
 
+// ======================
+// CART RENDER
+// ======================
+
 function renderCart(){
 
 const list =
@@ -292,29 +291,35 @@ document.getElementById("cart-total");
 const count =
 document.getElementById("cart-count");
 
+const qrContainer =
+document.getElementById("qr-container");
+
+const payBtn =
+document.getElementById("upi-pay-btn");
+
 if(!list) return;
 
 if(cart.length===0){
 
-list.innerHTML = `
-<p style="text-align:center">
-Your bag is empty.
-</p>
-`;
+list.innerHTML =
+"<p>Your bag is empty.</p>";
 
 totalText.innerText = "₹0";
 
 count.innerText = "0";
 
+if(qrContainer)
+qrContainer.innerHTML = "";
+
 return;
 
 }
 
-list.innerHTML = "";
-
 let total = 0;
 
 let quantity = 0;
+
+list.innerHTML = "";
 
 cart.forEach(item=>{
 
@@ -324,29 +329,19 @@ quantity += item.qty;
 
 list.innerHTML += `
 
-<div
-style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-padding-bottom:10px;
-border-bottom:1px solid #ddd;
-">
+<div class="cart-item">
 
 <div>
 
 <strong>${item.name}</strong>
 
-<div>
+<br>
 
-<button onclick="updateQty(${item.id},-1)">-</button>
+<button onclick="updateQty(${item.id},-1)">−</button>
 
 <span>${item.qty}</span>
 
 <button onclick="updateQty(${item.id},1)">+</button>
-
-</div>
 
 </div>
 
@@ -362,20 +357,44 @@ border-bottom:1px solid #ddd;
 
 });
 
-totalText.innerText =
-`₹${total}`;
+totalText.innerText = `₹${total}`;
 
-count.innerText =
-quantity;
+count.innerText = quantity;
+
+
+// ======================
+// QR GENERATION
+// ======================
+
+const upiUrl =
+`upi://pay?pa=${UPI_ID}&pn=Powder Root&am=${total}&cu=INR`;
+
+if(qrContainer){
+
+qrContainer.innerHTML = `
+
+<img
+src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiUrl)}"
+alt="QR">
+
+`;
+
+}
+
+if(payBtn){
+
+payBtn.href = upiUrl;
+
+}
 
 }
 
 renderCart();
 
 
-// =========================
+// ======================
 // WHATSAPP CHECKOUT
-// =========================
+// ======================
 
 window.checkoutViaWhatsApp = ()=>{
 
@@ -406,7 +425,7 @@ document.getElementById("cust-zip").value;
 
 if(!address || !city || !pin){
 
-alert("Please fill shipping details.");
+alert("Please complete address.");
 
 return;
 
@@ -417,20 +436,17 @@ const fullAddress =
 
 const total =
 cart.reduce(
-(sum,item)=>
-sum + item.price*item.qty,
+(sum,item)=>sum+(item.price*item.qty),
 0
 );
 
 const items =
-cart.map(item=>
-
-`${item.name} x${item.qty}`
-
+cart.map(
+item=>`${item.name} x${item.qty}`
 ).join(", ");
 
 
-// EMAIL BACKUP
+// EMAILJS
 
 emailjs.send(
 
@@ -462,15 +478,13 @@ fullAddress
 
 // WHATSAPP
 
-let message =
+const message =
 
 `🌿 POWDER ROOT ORDER
 
-Customer:
-${currentUser.displayName}
+Customer: ${currentUser.displayName}
 
-Email:
-${currentUser.email}
+Email: ${currentUser.email}
 
 Items:
 ${items}
@@ -492,41 +506,40 @@ window.open(
 };
 
 
-// =========================
-// COUNTER ANIMATION
-// =========================
+// ======================
+// COUNTERS
+// ======================
 
-const counters =
-document.querySelectorAll(".counter");
+document
+.querySelectorAll(".counter")
+.forEach(counter=>{
 
-const counterObserver =
+const observer =
 new IntersectionObserver(entries=>{
 
 entries.forEach(entry=>{
 
 if(entry.isIntersecting){
 
-const counter =
-entry.target;
-
 const target =
-Number(counter.dataset.target);
++counter.dataset.target;
 
 let current = 0;
 
 const step =
-target / 50;
+target / 60;
 
-const interval =
+const timer =
 setInterval(()=>{
 
 current += step;
 
 if(current >= target){
 
-counter.innerText = target;
+counter.innerText =
+target;
 
-clearInterval(interval);
+clearInterval(timer);
 
 }else{
 
@@ -537,7 +550,7 @@ Math.floor(current);
 
 },20);
 
-counterObserver.unobserve(counter);
+observer.disconnect();
 
 }
 
@@ -545,17 +558,14 @@ counterObserver.unobserve(counter);
 
 });
 
-counters.forEach(counter=>
-counterObserver.observe(counter)
-);
+observer.observe(counter);
+
+});
 
 
-// =========================
-// REVEAL ANIMATION
-// =========================
-
-const reveals =
-document.querySelectorAll(".reveal");
+// ======================
+// REVEAL
+// ======================
 
 const revealObserver =
 new IntersectionObserver(entries=>{
@@ -571,41 +581,39 @@ entry.target.classList.add("active");
 });
 
 },{
-threshold:0.15
+threshold:.15
 });
 
-reveals.forEach(item=>
-revealObserver.observe(item)
-);
+document
+.querySelectorAll(".reveal")
+.forEach(el=>revealObserver.observe(el));
 
 
-// =========================
-// NAV SHRINK
-// =========================
+// ======================
+// NAVBAR SHRINK
+// ======================
 
 const nav =
 document.querySelector(".glass-nav");
 
 window.addEventListener("scroll",()=>{
 
-if(window.scrollY > 80){
+if(window.scrollY > 100){
 
-nav.style.padding =
-"15px 6%";
+nav.style.padding = "15px 6%";
 
 }else{
 
-nav.style.padding =
-"25px 6%";
+nav.style.padding = "25px 6%";
 
 }
 
 });
 
 
-// =========================
+// ======================
 // HERO PARALLAX
-// =========================
+// ======================
 
 window.addEventListener("scroll",()=>{
 
@@ -622,22 +630,50 @@ hero.style.transform =
 });
 
 
-// =========================
-// FLOATING CART ICON
-// =========================
+// ======================
+// CART ANIMATION
+// ======================
 
-setInterval(()=>{
+function animateCart(){
 
 const cartIcon =
 document.querySelector(".cart-trigger");
 
-if(cartIcon){
+if(!cartIcon) return;
 
 cartIcon.animate(
 
 [
+{transform:"scale(1)"},
+{transform:"scale(1.3)"},
+{transform:"scale(1)"}
+],
+
+{
+duration:500
+}
+
+);
+
+}
+
+
+// ======================
+// FLOATING EFFECT
+// ======================
+
+setInterval(()=>{
+
+const cart =
+document.querySelector(".cart-trigger");
+
+if(cart){
+
+cart.animate(
+
+[
 {transform:"translateY(0px)"},
-{transform:"translateY(-4px)"},
+{transform:"translateY(-3px)"},
 {transform:"translateY(0px)"}
 ],
 
