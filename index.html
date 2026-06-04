@@ -1,119 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POWDER ROOT | Artisanal Essence</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Powder Root | Pure Indian Powders</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Montserrat:wght@300;400;500;600&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet"
+href="style.css">
+
 </head>
+
 <body>
 
-    <!-- Cinematic Background with Navy Tint -->
-    <div class="video-bg">
-        <video autoplay muted loop playsinline id="bgVideo">
-            <source src="assets/video/bg.mp4" type="video/mp4">
-        </video>
-        <div class="overlay"></div>
-    </div>
+<!-- VIDEO -->
 
-    <!-- Symmetrical Professional Navigation -->
-    <nav class="glass-nav fade-in">
-        <div class="nav-left">
-            <div id="auth-section">
-                <button id="login-btn" class="btn-text" onclick="handleAuth()">LOGIN</button>
-                <div id="user-profile" class="hidden">
-                    <img id="user-img" src="" alt="Profile" class="nav-avatar">
-                    <button onclick="handleLogout()" class="logout-trigger" title="Logout">
-                        <i class="fa-solid fa-power-off"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="brand-group">
-            <img src="assets/images/logo.jpg" alt="Logo" class="brand-icon hidden-mobile">
-            <div class="logo">POWDER<span>ROOT</span></div>
-        </div>
+<div class="video-bg">
 
-        <div class="nav-right">
-            <div class="cart-trigger" onclick="toggleCart()">
-                BAG <i class="fa-solid fa-bag-shopping"></i>
-                <span id="cart-count">0</span>
-            </div>
-        </div>
-    </nav>
+<video autoplay muted loop playsinline>
 
-    <!-- Editorial Left-Aligned Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <h5 class="fade-up delay-1">ESTABLISHED 2026</h5>
-            <h1 class="fade-up delay-2">PURE.<br>ORGANIC.<br><span>REFINED.</span></h1>
-            <div class="hero-line fade-up delay-3"></div>
-            <button class="btn-beige fade-up delay-4" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">EXPLORE COLLECTION</button>
-        </div>
-    </section>
+<source
+src="assets/video/bg.mp4"
+type="video/mp4">
 
-    <!-- Clean Product Grid -->
-    <section id="shop" class="shop-section">
-        <div class="section-header reveal">
-            <h2 class="section-title">The Essentials</h2>
-            <p class="section-subtitle">Sustainably sourced, artisanally milled.</p>
-        </div>
-        <div class="product-grid" id="product-container"></div>
-    </section>
+</video>
 
-    <!-- Sleek Navy & Beige Cart Drawer -->
-    <div id="cart-drawer" class="cart-drawer">
-        <div class="cart-header">
-            <h3>YOUR BAG</h3>
-            <i class="fa-solid fa-xmark" onclick="toggleCart()"></i>
-        </div>
+<div class="overlay"></div>
 
-        <!-- Step 1: Items -->
-        <div id="step-1" class="cart-step">
-            <div id="cart-items-list"></div>
-            <div class="cart-footer">
-                <div class="total-row">
-                    <span>Subtotal</span>
-                    <span id="cart-total">₹0.00</span>
-                </div>
-                <button class="btn-beige-full" onclick="nextStep(2)">PROCEED TO SHIPPING</button>
-            </div>
-        </div>
+</div>
 
-        <!-- Step 2: Shipping -->
-        <div id="step-2" class="cart-step hidden">
-            <button class="back-link" onclick="nextStep(1)">← Back to Bag</button>
-            <h4>SHIPPING DETAILS</h4>
-            <div class="address-section">
-                <input type="text" id="cust-address" placeholder="Street Address" class="navy-input">
-                <div class="input-row">
-                    <input type="text" id="cust-city" placeholder="City" class="navy-input">
-                    <input type="text" id="cust-zip" placeholder="ZIP Code" class="navy-input">
-                </div>
-            </div>
-            <div class="cart-footer">
-                <button class="btn-beige-full" onclick="nextStep(3)">PROCEED TO PAYMENT</button>
-            </div>
-        </div>
+<!-- NAVBAR -->
 
-        <!-- Step 3: Payment -->
-        <div id="step-3" class="cart-step hidden">
-            <button class="back-link" onclick="nextStep(2)">← Back to Shipping</button>
-            <h4 class="beige-text">SCAN TO PAY</h4>
-            <div id="qr-container" class="qr-box"></div>
-            <p class="qr-hint">Use any UPI App to complete your secure transaction.</p>
-            <div class="cart-footer">
-                <button class="whatsapp-btn" onclick="checkoutViaWhatsApp()">
-                    COMPLETE ORDER <i class="fa-brands fa-whatsapp"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+<nav class="glass-nav">
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="module" src="js/app.js"></script>
+<div class="logo">
+
+<img
+src="assets/images/logo.jpg"
+alt="Powder Root">
+
+<span>POWDER ROOT</span>
+
+</div>
+
+<div class="nav-links">
+
+<a href="#story">Story</a>
+
+<a href="#products">Products</a>
+
+<a href="#instagram">Instagram</a>
+
+<a href="#contact">Contact</a>
+
+</div>
+
+<div class="nav-actions">
+
+<button id="login-btn"
+onclick="handleAuth()">
+
+LOGIN
+
+</button>
+
+<div id="user-profile"
+class="hidden">
+
+<img id="user-img">
+
+<button onclick="handleLogout()">
+
+LOGOUT
+
+</button>
+
+</div>
+
+<div class="cart-trigger"
+onclick="toggleCart()">
+
+<i class="fa-solid fa-bag-shopping"></i>
+
+<span id="cart-count">0</span>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-left">
+
+<span class="eyebrow">
+
+PREMIUM INDIAN POWDERS
+
+</span>
+
+<h1>
+
+Pure.
+<br>
+Natural.
+<br>
+Refined.
+
+</h1>
+
+<p>
+
+Crafted from carefully selected
+Indian ingredients and processed
+to preserve flavour, aroma and purity.
+
+</p>
+
+<a href="#products"
+class="hero-btn">
+
+EXPLORE COLLECTION
+
+</a>
+
+</div>
+
+<div class="hero-right">
+
+<img
+src="assets/images/onion.jpg"
+class="floating-product">
+
+</div>
+
+</section>
+
+<!-- MARQUEE -->
+
+<section class="marquee">
+
+<div class="marquee-track">
+
+100% NATURAL • SMALL BATCH •
+MADE IN INDIA • PREMIUM QUALITY •
+100% NATURAL • SMALL BATCH •
+
+</div>
+
+</section>
+
+<!-- STORY -->
+
+<section
+class="story-section"
+id="story">
+
+<div class="story-image">
+
+<img
+src="assets/images/garlic.jpg">
+
+</div>
+
+<div class="story-content">
+
+<span>OUR STORY</span>
+
+<h2>
+
+Crafted From Nature.
+
+</h2>
+
+<p>
+
+Powder Root creates premium powders
+using carefully selected ingredients.
+
+Every batch is produced in small
+quantities to preserve flavour,
+quality and freshness.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features">
+
+<div class="feature">
+
+<i class="fa-solid fa-leaf"></i>
+
+<h3>Natural</h3>
+
+<p>
+
+No unnecessary additives.
+
+</p>
+
+</div>
+
+<div class="feature">
+
+<i class="fa-solid fa-seedling"></i>
+
+<h3>Farm Selected</h3>
+
+<p>
+
+Carefully sourced ingredients.
+
+</p>
+
+</div>
+
+<div class="feature">
+
+<i class="fa-solid fa-award"></i>
+
+<h3>Premium Quality</h3>
+
+<p>
+
+Small batch crafted.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<section
+class="products-section"
+id="products">
+
+<div class="section-header">
+
+<span>COLLECTION</span>
+
+<h2>Our Products</h2>
+
+</div>
+
+<div
+id="product-container"
+class="product-grid">
+
+</div>
+
+</section>
+
+<!-- COUNTERS -->
+
+<section class="stats">
+
+<div>
+
+<h2 class="counter"
+data-target="100">
+
+0
+
+</h2>
+
+<p>Natural</p>
+
+</div>
+
+<div>
+
+<h2 class="counter"
+data-target="500">
+
+0
+
+</h2>
+
+<p>Happy Customers</p>
+
+</div>
+
+<div>
+
+<h2 class="counter"
+data-target="3">
+
+0
+
+</h2>
+
+<p>Premium Products</p>
+
+</div>
+
+</section>
+
+<!-- TESTIMONIALS -->
+
+<section class="testimonials">
+
+<h2>
+
+Customer Reviews
+
+</h2>
+
+<div class="testimonial-card">
+
+★★★★★
+
+<p>
+
+Amazing quality and aroma.
+
+</p>
+
+<span>
+
+Verified Customer
+
+</span>
+
+</div>
+
+</section>
+
+<!-- INSTAGRAM -->
+
+<section
+class="instagram"
+id="instagram">
+
+<h2>
+
+Follow Our Journey
+
+</h2>
+
+<a
+href="https://www.instagram.com/powderoots?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+target="_blank">
+
+@powderoots
+
+</a>
+
+</section>
+
+<!-- CONTACT -->
+
+<section
+class="contact-section"
+id="contact">
+
+<h2>
+
+Need Help?
+
+</h2>
+
+<p>
+
+WhatsApp Us Anytime
+
+</p>
+
+<a
+href="https://wa.me/919096999662">
+
++91 9096999662
+
+</a>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+<div>
+
+<h3>
+
+POWDER ROOT
+
+</h3>
+
+<p>
+
+Pure Indian Powders
+
+</p>
+
+</div>
+
+<div>
+
+<a href="#products">
+
+Shop
+
+</a>
+
+</div>
+
+<div>
+
+<a
+href="https://www.instagram.com/powderoots?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+
+Instagram
+
+</a>
+
+</div>
+
+</footer>
+
+<!-- CART DRAWER -->
+
+<div
+id="cart-drawer"
+class="cart-drawer">
+
+<div class="cart-header">
+
+<h3>Your Bag</h3>
+
+<i
+class="fa-solid fa-xmark"
+onclick="toggleCart()">
+
+</i>
+
+</div>
+
+<div id="cart-items-list">
+
+</div>
+
+<div class="address-section">
+
+<input
+type="text"
+id="cust-address"
+placeholder="Address">
+
+<input
+type="text"
+id="cust-city"
+placeholder="City">
+
+<input
+type="text"
+id="cust-zip"
+placeholder="Pincode">
+
+</div>
+
+<div class="cart-footer">
+
+<h3 id="cart-total">
+
+₹0
+
+</h3>
+
+<button
+onclick="checkoutViaWhatsApp()">
+
+Place Order
+
+</button>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script
+type="module"
+src="app.js">
+
+</script>
+
 </body>
 </html>
